@@ -8,11 +8,13 @@ import { BASE_URL, EMPTY_FORM_VALUE } from "./constants/constants";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const { handleSubmit, register, reset } = useForm();
   const [users, setUsers] = useState([]);
   const [userIdToEdit, setUserIdToEdit] = useState(null);
+  
 
-  console.log(users);
+  const { handleSubmit, register, reset, formState } = useForm();
+  const {errors} = formState
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -80,6 +82,7 @@ function App() {
         handleSubmit={handleSubmit}
         register={register}
         submit={submit}
+        errors={errors}
         userIdToEdit={userIdToEdit}
       />
       {users.length === 0 ? (

@@ -1,4 +1,5 @@
 import { IconSquareRoundedXFilled } from "@tabler/icons-react";
+import { EMAIL, LAST_NAME, NAME, PASSWORD } from "../constants/formValidation";
 
 function Modal({
   showModal,
@@ -7,6 +8,7 @@ function Modal({
   register,
   submit,
   userIdToEdit,
+  errors,
 }) {
   return (
     <section
@@ -26,51 +28,67 @@ function Modal({
         </button>
         <div className="grid  gap-2">
           <label className="" htmlFor="first_name">
-            Nombre
+            Nombre <span className="text-red-500">*</span>
           </label>
           <input
             className="bg-inherit  outline-none rounded-md border px-2 py-1"
             placeholder="Nombre"
             type="text"
             id="first_name"
-            {...register("first_name")}
+            {...register("first_name", NAME)}
           />
+          {errors.first_name && (
+            <span className="text-red-500 text-sm">
+              {errors.first_name.message}
+            </span>
+          )}
         </div>
         <div className="grid gap-2">
           <label className="" htmlFor="last_name">
-            Apellidos
+            Apellidos <span className="text-red-500">*</span>
           </label>
           <input
             className="bg-inherit   outline-none rounded-md border px-2 py-1"
             placeholder="Apellidos"
             type="text"
             id="last_name"
-            {...register("last_name")}
+            {...register("last_name", LAST_NAME)}
           />
+          {errors.last_name && (
+            <span className="text-red-500 text-sm">
+              {errors.last_name.message}
+            </span>
+          )}
         </div>
         <div className="grid gap-2">
           <label className="" htmlFor="email">
-            Correo
+            Correo <span className="text-red-500">*</span>
           </label>
           <input
             className="bg-inherit   outline-none rounded-md border px-2 py-1"
             placeholder="Correo"
             type="email"
             id="email"
-            {...register("email")}
+            {...register("email", EMAIL)}
           />
+          {errors.email && (
+            <span className="text-red-500 text-sm">{errors.email.message}</span>
+          )}
         </div>
         <div className="grid gap-2">
           <label className="" htmlFor="password">
-            Contraseña
+            Contraseña <span className="text-red-500">*</span>
           </label>
           <input
             className="bg-inherit   outline-none rounded-md border px-2 py-1"
             placeholder="Contraseña"
             type="text"
             id="password"
-            {...register("password")}
+            {...register("password", PASSWORD)}
           />
+          {errors.password && (
+            <span className="text-red-500 text-sm">{errors.password.message}</span>
+          )}
         </div>
         <div className="grid gap-2">
           <label className="" htmlFor="birthday">
