@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Modal from "./components/Modal";
 import UserList from "./components/UserList";
-import Header from "./constants/Header";
 import { BASE_URL, EMPTY_FORM_VALUE } from "./constants/constants";
+import Header from "./components/Header";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [userIdToEdit, setUserIdToEdit] = useState(null);
   
+
 
   const { handleSubmit, register, reset, formState } = useForm();
   const {errors} = formState
@@ -26,6 +27,9 @@ function App() {
   };
 
   const submit = (data) => {
+    if (data.image_url === '') {
+      data.image_url = null
+    }
     userIdToEdit ? UpdateUser(data) : createUser(data);
   };
 
@@ -58,6 +62,7 @@ function App() {
       email: user.email,
       password: user.password,
       birthday: user.birthday,
+      image_url: user.image_url 
     });
     setUserIdToEdit(user.id);
   };
@@ -74,7 +79,7 @@ function App() {
   }, []);
 
   return (
-    <main className="p-4 bg-white h-screen overflow-y-scroll font-['Lato'] ">
+    <main className="p-4 losfondos bg-black h-screen  overflow-y-scroll font-['Lato'] ">
       <Header handleOpenModal={handleOpenModal} />
       <Modal
         showModal={showModal}
@@ -86,7 +91,7 @@ function App() {
         userIdToEdit={userIdToEdit}
       />
       {users.length === 0 ? (
-        <h3 className="text-white text-center text-2xl mt-20">Por el momento no has creado ningún usuario</h3>
+        <h3 className="text-[#D3D3D3] text-center text-2xl mt-20">Por el momento no has creado ningún usuario</h3>
       ) : (
         <UserList
           users={users}

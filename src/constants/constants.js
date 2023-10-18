@@ -6,6 +6,7 @@ const EMPTY_FORM_VALUE= {
     email: '',
     password: '',
     birthday: '',
+    image_url: ''
   }
 export {
     BASE_URL,

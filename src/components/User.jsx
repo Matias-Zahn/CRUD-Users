@@ -5,27 +5,26 @@ import DeleteUser from "./DeleteUser";
 function User({ user, handleEditUser, getAllUsers }) {
   const [confirmationAlert, setConfirmationAlert] = useState(false);
 
+
   const handleDeleteUser = () => {
     setConfirmationAlert(true);
   };
   return (
-    <section className="bg-[#E5E5E5] p-4 grid items-center rounded-md gap-2 w-[min(500px,_100%)] ">
+    <section className="bg-[#D3D3D3]/50 p-4 grid items-center rounded-2xl gap-2 w-[min(500px,_100%)] ">
       <div className="flex gap-4 justify-between items-center border-b">
-        <h1 className="text-2xl tracking-widest font-bold py-2">
-          {user.first_name} {user.last_name}
-        </h1>
-      </div>
-      <section className=" grid gap-4">
-        <div>
-          <h5 className="text-[#D3D3D3]">Correo</h5>
-          <p className="text-[#302F2F]">{user.email}</p>
+        <div className="flex items-center mb-1 gap-3">
+          {user.image_url !== null && (
+            <img
+              className={`w-[80px] h-[80px] rounded-full border-2  border-[#8EFF8B] `}
+              src={user.image_url}
+              alt="No Imagen"
+            />
+          )}
+          <h1 className="text-2xl text-[#0F0F2D] tracking-widest font-bold py-2">
+            {user.first_name} {user.last_name}
+          </h1>
         </div>
-        <div>
-          <h5 className="text-[#D3D3D3]">Cumpleaños</h5>
-          <p className="text-[#302F2F] flex gap-2"> <IconCake />  {user.birthday}</p>
-        </div>
-      </section>
-      <div className="text-white flex gap-1 justify-end">
+        <div className="text-white flex gap-1 justify-end">
           <button
             onClick={handleDeleteUser}
             className="bg-red-500 p-1 hover:bg-red-900 transition-colors rounded-md"
@@ -39,7 +38,26 @@ function User({ user, handleEditUser, getAllUsers }) {
             <IconEditCircle size={28} />
           </button>
         </div>
-      <DeleteUser  setConfirmationAlert={setConfirmationAlert} confirmationAlert={confirmationAlert} userId={user.id} getAllUsers={getAllUsers}/>
+      </div>
+      <section className=" flex p-4 gap-4">
+        <div className="">
+          <h5 className="text-[#D3D3D3]">Correo</h5>
+          <p className="text-[#FFFF]">{user.email}</p>
+        </div>
+        <div className="">
+          <h5 className="text-[#D3D3D3]">Cumpleaños</h5>
+          <p className="text-[#FFFF] flex gap-2">
+            {" "}
+            <IconCake /> {user.birthday}
+          </p>
+        </div>
+      </section>
+      <DeleteUser
+        setConfirmationAlert={setConfirmationAlert}
+        confirmationAlert={confirmationAlert}
+        userId={user.id}
+        getAllUsers={getAllUsers}
+      />
     </section>
   );
 }

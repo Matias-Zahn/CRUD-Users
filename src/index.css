@@ -1,4 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.losfondos {
+  background: url("/Ellipse\(1\).png") bottom left no-repeat,
+    url("/Ellipse\(2\).png") right bottom no-repeat;
+    background-color: black;
+}
