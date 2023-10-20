@@ -2,7 +2,7 @@ import { IconCake, IconEditCircle, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";
 import DeleteUser from "./DeleteUser";
 
-function User({ user, handleEditUser, getAllUsers }) {
+function User({ user, handleEditUser, getAllUsers, handleDelete }) {
   const [confirmationAlert, setConfirmationAlert] = useState(false);
 
 
@@ -55,8 +55,9 @@ function User({ user, handleEditUser, getAllUsers }) {
       <DeleteUser
         setConfirmationAlert={setConfirmationAlert}
         confirmationAlert={confirmationAlert}
-        userId={user.id}
+        user={user}
         getAllUsers={getAllUsers}
+        handleDelete={handleDelete}
       />
     </section>
   );

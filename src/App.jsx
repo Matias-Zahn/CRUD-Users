@@ -5,16 +5,15 @@ import Modal from "./components/Modal";
 import UserList from "./components/UserList";
 import { BASE_URL, EMPTY_FORM_VALUE } from "./constants/constants";
 import Header from "./components/Header";
+import { Toaster, toast } from "sonner";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const [userIdToEdit, setUserIdToEdit] = useState(null);
-  
-
 
   const { handleSubmit, register, reset, formState } = useForm();
-  const {errors} = formState
+  const { errors } = formState;
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -27,8 +26,8 @@ function App() {
   };
 
   const submit = (data) => {
-    if (data.image_url === '') {
-      data.image_url = null
+    if (data.image_url === "") {
+      data.image_url = null;
     }
     userIdToEdit ? UpdateUser(data) : createUser(data);
   };
@@ -50,6 +49,7 @@ function App() {
       .then(() => {
         getAllUsers();
         handleCloseModal();
+        toast.success("El usuario ha sido editado correctamente");
       })
       .catch((err) => console.log(err));
   };
@@ -62,9 +62,20 @@ function App() {
       email: user.email,
       password: user.password,
       birthday: user.birthday,
-      image_url: user.image_url 
+      image_url: user.image_url,
     });
     setUserIdToEdit(user.id);
+  };
+  const handleDelete = (userId, alert) => {
+    axios
+      .delete(BASE_URL + `/users/${userId}/`)
+      .then(() => {
+        getAllUsers();
+        toast.success("El usuario ha sido eliminado correctamente");
+      })
+      .catch((err) => console.log(err));
+
+      alert(false);
   };
 
   const getAllUsers = () => {
@@ -73,7 +84,7 @@ function App() {
       .then(({ data }) => setUsers(data))
       .catch((err) => console.log(err));
   };
-
+  
   useEffect(() => {
     getAllUsers();
   }, []);
@@ -91,13 +102,19 @@ function App() {
         userIdToEdit={userIdToEdit}
       />
       {users.length === 0 ? (
-        <h3 className="text-[#D3D3D3] text-center text-2xl mt-20">Por el momento no has creado ningún usuario</h3>
+        <h3 className='text-[#D3D3D3] text-center text-2xl mt-20'>
+          Por el momento no has creado ningún usuario
+        </h3>
       ) : (
-        <UserList
-          users={users}
-          handleEditUser={handleEditUser}
-          getAllUsers={getAllUsers}
-        />
+        <>
+          <UserList
+            users={users}
+            handleEditUser={handleEditUser}
+            getAllUsers={getAllUsers}
+            handleDelete={handleDelete}
+          />
+          <Toaster />
+        </>
       )}
     </main>
   );
